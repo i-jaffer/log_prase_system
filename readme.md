@@ -5,9 +5,7 @@
 + 此工程为基于python的日志解析系统，适用于使用rtthread的log日志系统。
 
 + 在使用rtthread的log时，输出的日志有很多，此工程完成对日志信息的提取并已图表的形式输出，方便进行数据分析。
-  
-  
-  
+
   如以下数据:
 
 ```textile
@@ -34,8 +32,6 @@
 执行结果
 
 ![](/home/wl/.config/marktext/images/2022-07-05-18-11-01-image.png)
-
-
 
 ## Usage
 
