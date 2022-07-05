@@ -1,5 +1,6 @@
 import easygui
 import re
+import matplotlib.pyplot as plt
 
 ret = None
 tag, keyword_header, keyword_tail = '', '', ''
@@ -11,6 +12,15 @@ msg = """\
     关键字前部: volt 
     关键字后部: f
 """
+
+def get_key_information(filename, regular_expression):
+    # 使用正则表达式提取信息，并将提取到的数据返回
+    fd = open(filename, 'r')
+    p = re.compile(regular_expression, re.MULTILINE)
+    #p = re.compile("^\[task\].*volt:(\d+.{0,1}\d+)v", re.MULTILINE)
+    result = p.findall(fd.read())
+    fd.close()
+    return result
 
 ret = easygui.msgbox(msg = "欢迎使用日志提取系统", title = "日志提取系统", ok_button="OK")
 if ret == None:
@@ -35,12 +45,14 @@ print(filename)
 expression = f"^\[{tag}\].*{keyword_header}(\d+.{{0,1}}\d+)v"
 print(expression)
 
-fd = open(filename, 'r')
-p = re.compile(expression, re.MULTILINE)
-#p = re.compile("^\[task\].*volt:(\d+.{0,1}\d+)v", re.MULTILINE)
-out = p.findall(fd.read())
-fd.close()
+# get ket information for regular expression
+result = get_key_information(filename, expression)
 
-out_of_num = [float(i) for i in out]
-print(out)
-print(out_of_num)
+# str to float
+result_of_num = [float(i) for i in result]
+print(result)
+print(result_of_num)
+
+#plt.plot([i for i in range(len(result))], out_of_num)
+plt.plot(result_of_num)
+plt.show()
